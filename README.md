@@ -47,6 +47,7 @@ use a no-code form backend such as [Formspree](https://formspree.io) or
 - **Business:** Clear Sky Consulting
 - **Consultant:** Kenneth Jimmieson
 - **Phone:** +61 488 855 709
+- **Address:** 38 Smith Street, Cairns North QLD 4870
 - **Website:** clear-sky-consulting.au
 - **Email:** hello@clear-sky-consulting.au *(update to your real inbox)*
 
