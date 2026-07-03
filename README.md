@@ -20,16 +20,13 @@ hosted anywhere with no build step or server-side code.
 
 ## Your photo
 
-The site looks for your headshot at **`assets/img/kenneth.jpg`**. Until that
-file exists, a placeholder illustration is shown automatically.
+Kenneth's headshot lives at **`assets/img/exec-1.webp`** and appears on the
+Home and About pages. To swap it for a different photo, either replace that
+file (keep the same name) or upload a new one and update the `<img src="...">`
+references in `index.html` and `about.html`.
 
-To add your photo:
-
-1. Save your headshot as `kenneth.jpg`.
-2. Drop it into the `assets/img/` folder (replace nothing else).
-3. Refresh the site — it will appear on the Home and About pages.
-
-A square image (e.g. 600×600px or larger) works best.
+A square image (e.g. 600×600px or larger) works best. If the referenced file is
+ever missing, a placeholder illustration is shown automatically.
 
 ## Making the forms live
 
