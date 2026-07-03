@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en-AU">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Apply — Clear Sky Consulting</title>
+  <meta name="description" content="Apply to work with Clear Sky Consulting. Tell Kenneth Jimmieson about your business or idea and book a discovery chat.">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+
+  <div class="utility-bar">
+    <div class="container">
+      <a href="tel:+61488855709">📞 +61 488 855 709</a>
+      <a href="mailto:hello@clear-sky-consulting.au">✉️ hello@clear-sky-consulting.au</a>
+    </div>
+  </div>
+
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <img class="brand__logo" src="assets/img/logo.svg" alt="">
+        <span>Clear Sky Consulting<small>Online Business Consulting</small></span>
+      </a>
+      <button class="nav__toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <ul class="nav__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="apply.html">Apply</a></li>
+        <li><a href="payment.html">Payment</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="nav__cta"><a class="btn btn--primary" href="contact.html">Book a Chat</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow" style="color:var(--sky-300)">Application</span>
+      <h1>Apply to work together</h1>
+      <p>Tell me a little about you and what you'd like to achieve. It only takes a few minutes, and there's no obligation.</p>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container" style="max-width:760px">
+      <div class="form-card">
+        <!-- To collect real submissions, set action to your Formspree/endpoint URL
+             and method to "post", then remove data-demo-form. -->
+        <form data-demo-form action="#" method="post" novalidate>
+
+          <h3 style="margin-top:0">Your details</h3>
+          <div class="field-row">
+            <div class="field">
+              <label for="a-first">First name <span class="req">*</span></label>
+              <input id="a-first" name="first_name" type="text" required autocomplete="given-name">
+            </div>
+            <div class="field">
+              <label for="a-last">Last name <span class="req">*</span></label>
+              <input id="a-last" name="last_name" type="text" required autocomplete="family-name">
+            </div>
+          </div>
+          <div class="field-row">
+            <div class="field">
+              <label for="a-email">Email <span class="req">*</span></label>
+              <input id="a-email" name="email" type="email" required autocomplete="email">
+            </div>
+            <div class="field">
+              <label for="a-phone">Phone <span class="req">*</span></label>
+              <input id="a-phone" name="phone" type="tel" required autocomplete="tel">
+            </div>
+          </div>
+
+          <h3 style="margin-top:26px">About you</h3>
+          <div class="field-row">
+            <div class="field">
+              <label for="a-type">I am a… <span class="req">*</span></label>
+              <select id="a-type" name="client_type" required>
+                <option value="">Please choose…</option>
+                <option>Small business owner</option>
+                <option>Startup / new venture</option>
+                <option>Private client / individual</option>
+                <option>Other</option>
+              </select>
+            </div>
+            <div class="field">
+              <label for="a-business">Business name (if any)</label>
+              <input id="a-business" name="business_name" type="text">
+            </div>
+          </div>
+          <div class="field">
+            <label for="a-service">What are you interested in?</label>
+            <select id="a-service" name="service">
+              <option value="">Please choose…</option>
+              <option>Business Strategy</option>
+              <option>Small Business Coaching</option>
+              <option>Marketing &amp; Growth</option>
+              <option>Finance &amp; Cash Flow</option>
+              <option>Operations &amp; Systems</option>
+              <option>Private Client Advisory</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+
+          <h3 style="margin-top:26px">Your goals</h3>
+          <div class="field">
+            <label for="a-goals">What would you like to achieve? <span class="req">*</span></label>
+            <textarea id="a-goals" name="goals" required placeholder="Tell me about your business or idea and what success looks like for you."></textarea>
+          </div>
+          <div class="field">
+            <label for="a-when">When would you like to start?</label>
+            <select id="a-when" name="timeframe">
+              <option value="">Please choose…</option>
+              <option>As soon as possible</option>
+              <option>Within a month</option>
+              <option>In the next few months</option>
+              <option>Just exploring</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="a-hear">How did you hear about Clear Sky Consulting?</label>
+            <input id="a-hear" name="referral" type="text">
+          </div>
+
+          <button class="btn btn--primary btn--block" type="submit">Submit Application</button>
+          <div class="form-status" role="status">Thank you for your application! Kenneth will review your details and be in touch to arrange your discovery chat.</div>
+          <p class="form-note">Your information is kept confidential and used only to respond to your application.</p>
+        </form>
+      </div>
+    </div>
+  </section>
+
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="index.html">
+            <img class="brand__logo" src="assets/img/logo.svg" alt="">
+            <span>Clear Sky Consulting<small>Online Business Consulting</small></span>
+          </a>
+          <p style="margin-top:16px;color:#9fb2c4;max-width:34ch">Helping small business owners and private clients move forward with clarity and confidence.</p>
+        </div>
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="apply.html">Apply</a></li>
+            <li><a href="payment.html">Payment</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Get in touch</h4>
+          <ul>
+            <li>📞 <a href="tel:+61488855709">+61 488 855 709</a></li>
+            <li>✉️ <a href="mailto:hello@clear-sky-consulting.au">hello@clear-sky-consulting.au</a></li>
+            <li>🌐 clear-sky-consulting.au</li>
+            <li>📍 Australia — online worldwide</li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> Clear Sky Consulting. All rights reserved.</span>
+        <span>ABN available on request · Kenneth Jimmieson</span>
+      </div>
+    </div>
+  </footer>
+
+  <script src="assets/js/main.js"></script>
+</body>
+</html>
