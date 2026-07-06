@@ -1,4 +1,4 @@
-/* Clear Sky Consulting — front-end interactions */
+/* Clear Sky Consulting - front-end interactions */
 (function () {
   "use strict";
 
