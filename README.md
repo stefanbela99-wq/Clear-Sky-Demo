@@ -1,6 +1,6 @@
-# Clear Sky Consulting — Website
+# Clear Sky Consulting - Website
 
-A lightweight, multi-page marketing website for **Clear Sky Consulting** —
+A lightweight, multi-page marketing website for **Clear Sky Consulting** -
 online business consulting by **Kenneth Jimmieson** for small business owners
 and private clients.
 
@@ -11,7 +11,7 @@ hosted anywhere with no build step or server-side code.
 
 | File | Purpose |
 |------|---------|
-| `index.html` | Home — hero, services overview, about preview, calls to action |
+| `index.html` | Home - hero, services overview, about preview, calls to action |
 | `about.html` | About Kenneth, approach and values |
 | `services.html` | Full list of services + how it works |
 | `apply.html` | Application form to work together |
@@ -62,6 +62,6 @@ python3 -m http.server 8000
 
 ## Deploying
 
-Upload all files to any static host — Netlify, Cloudflare Pages, GitHub Pages,
+Upload all files to any static host - Netlify, Cloudflare Pages, GitHub Pages,
 Vercel, or traditional cPanel/FTP hosting for your `clear-sky-consulting.au`
 domain. Keep the folder structure intact.
