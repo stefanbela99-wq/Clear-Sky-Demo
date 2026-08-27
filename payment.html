@@ -20,6 +20,10 @@
   .pay-wrap{max-width:640px;margin:0 auto}
   .pay-card{background:var(--card,#fff);border:1px solid var(--line,#e5ebf1);border-radius:18px;padding:1.8rem;box-shadow:0 18px 50px -30px rgba(19,64,99,.4)}
   .pay-card + .pay-card{margin-top:1.2rem}
+  .pay-row{display:grid;grid-template-columns:1fr 1fr;gap:0 1rem}
+  @media (max-width:520px){.pay-row{grid-template-columns:1fr}}
+  .form-subhead{font-weight:600;margin:1.3rem 0 .1rem;font-size:1rem}
+  .form-hint{color:var(--muted,#5c6b7a);font-size:.85rem;margin:0 0 .7rem}
   .pay-invoice{border:1px dashed var(--line,#e5ebf1);border-radius:14px;padding:1.1rem 1.2rem;margin:0 0 1.2rem}
   .pay-invoice .row{display:flex;justify-content:space-between;gap:1rem;padding:.35rem 0;font-size:.95rem}
   .pay-invoice .row .k{color:var(--muted,#5c6b7a)}
@@ -126,8 +130,43 @@
             <label for="amount">Amount (AUD) - as agreed with your advisor</label>
             <input id="amount" name="amount" type="number" min="1" max="50000" step="0.01" inputmode="decimal" placeholder="e.g. 1500">
           </div>
-          <div class="field"><label for="name">Your name</label><input id="name" name="name" type="text" autocomplete="name" required></div>
-          <div class="field"><label for="email">Email (for your receipt)</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+          <div class="pay-row">
+            <div class="field"><label for="firstName">First name</label><input id="firstName" name="firstName" type="text" autocomplete="given-name" required></div>
+            <div class="field"><label for="lastName">Last name</label><input id="lastName" name="lastName" type="text" autocomplete="family-name" required></div>
+          </div>
+          <div class="pay-row">
+            <div class="field"><label for="email">Email (for your receipt)</label><input id="email" name="email" type="email" autocomplete="email" required></div>
+            <div class="field"><label for="phone">Phone (optional)</label><input id="phone" name="phone" type="tel" autocomplete="tel"></div>
+          </div>
+
+          <p class="form-subhead">Billing address</p>
+          <p class="form-hint">We use this to verify your card and keep your payment secure.</p>
+          <div class="field"><label for="street">Street address</label><input id="street" name="street" type="text" autocomplete="address-line1" placeholder="e.g. 44 Kings Park Road" required></div>
+          <div class="pay-row">
+            <div class="field"><label for="city">City / suburb</label><input id="city" name="city" type="text" autocomplete="address-level2" required></div>
+            <div class="field"><label for="state">State / territory</label><input id="state" name="state" type="text" autocomplete="address-level1" placeholder="e.g. WA" required></div>
+          </div>
+          <div class="pay-row">
+            <div class="field"><label for="postcode">Postcode</label><input id="postcode" name="postcode" type="text" autocomplete="postal-code" inputmode="numeric" required></div>
+            <div class="field"><label for="country">Country</label>
+              <select id="country" name="country" required>
+                <option value="AU" selected>Australia</option>
+                <option value="NZ">New Zealand</option>
+                <option value="GB">United Kingdom</option>
+                <option value="US">United States</option>
+                <option value="CA">Canada</option>
+                <option value="IE">Ireland</option>
+                <option value="SG">Singapore</option>
+                <option value="HK">Hong Kong</option>
+                <option value="AE">United Arab Emirates</option>
+                <option value="OTHER">Other…</option>
+              </select>
+            </div>
+          </div>
+          <div class="field" id="countryOtherField" hidden>
+            <label for="countryOther">Country code (2 letters)</label>
+            <input id="countryOther" name="countryOther" type="text" maxlength="2" placeholder="e.g. FR" style="text-transform:uppercase">
+          </div>
 
           <div class="pay-invoice" aria-live="polite">
             <div class="row"><span class="k" id="inv-service">Decision clarity session</span><span class="v" id="inv-line">$1,200.00</span></div>
@@ -274,6 +313,17 @@
   amountInp.addEventListener('input', refreshInvoice);
   refreshInvoice();
 
+  // Reveal free-text country code when "Other" is chosen.
+  var countrySel = $('country'), countryOtherField = $('countryOtherField'), countryOther = $('countryOther');
+  countrySel.addEventListener('change', function(){
+    var other = countrySel.value === 'OTHER';
+    countryOtherField.hidden = !other;
+    countryOther.required = other;
+  });
+  function countryCode(){
+    return countrySel.value === 'OTHER' ? countryOther.value.trim().toUpperCase() : countrySel.value;
+  }
+
   function setStatus(msg, kind){
     payStatus.textContent = msg || '';
     payStatus.className = 'pay-status' + (kind ? ' ' + kind : '');
@@ -285,20 +335,36 @@
 
   var mounted = false;
 
+  function req(id){ var el = $(id); if (!el.value.trim()){ el.focus(); return null; } return el.value.trim(); }
+
   form.addEventListener('submit', async function(e){
     e.preventDefault();
-    var name = $('name').value.trim(), email = $('email').value.trim();
-    if (!name){ $('name').focus(); return; }
+    var firstName = req('firstName'); if (firstName === null) return;
+    var lastName = req('lastName'); if (lastName === null) return;
+    var email = $('email').value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ $('email').focus(); return; }
+    var phone = $('phone').value.trim();
+    var street = req('street'); if (street === null) return;
+    var city = req('city'); if (city === null) return;
+    var state = req('state'); if (state === null) return;
+    var postcode = req('postcode'); if (postcode === null) return;
+    var cc = countryCode();
+    if (!cc || cc.length !== 2){ (countrySel.value === 'OTHER' ? countryOther : countrySel).focus(); return; }
     var amt = currentAmount();
     if (amt == null){ amountInp.focus(); return; }
+
+    var billing = {
+      first_name: firstName, last_name: lastName, email: email,
+      phone_number: phone || undefined,
+      address: { street: street, city: city, state: state, postcode: postcode, country_code: cc }
+    };
 
     busy(true);
     try {
       var res = await fetch('/.netlify/functions/create-payment-intent', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ service: serviceSel.value, amount: amt, name: name, email: email })
+        body: JSON.stringify({ service: serviceSel.value, amount: amt, name: firstName + ' ' + lastName, email: email, billing: billing })
       });
       var data = await res.json();
       if (!res.ok) {
@@ -323,6 +389,9 @@
         intent_id: data.id,
         client_secret: data.client_secret,
         currency: data.currency,
+        autoCapture: true,
+        // Merchant-provided billing → drives AVS and improves the risk/3DS assessment.
+        billing: data.billing,
         appearance: { mode: (document.documentElement.getAttribute('data-theme') === 'dark' ? 'dark' : 'light'), variables: { colorBrand: '#134063' } }
       });
       dropIn.mount('drop-in');

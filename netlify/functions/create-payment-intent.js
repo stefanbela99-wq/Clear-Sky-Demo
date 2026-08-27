@@ -73,6 +73,28 @@ exports.handler = async (event) => {
   if (!isEmail(email)) return json(400, { error: 'Please enter a valid email address.' });
   if (!name || !String(name).trim()) return json(400, { error: 'Please enter your name.' });
 
+  // Billing details (used for AVS / risk assessment). Collected on the form.
+  const b = (input.billing && typeof input.billing === 'object') ? input.billing : {};
+  const addr = (b.address && typeof b.address === 'object') ? b.address : {};
+  const trimmed = (v) => (typeof v === 'string' ? v.trim() : '');
+  const billing = {
+    first_name: trimmed(b.first_name) || trimmed(name).split(' ')[0] || trimmed(name),
+    last_name: trimmed(b.last_name) || trimmed(name).split(' ').slice(1).join(' ') || trimmed(name),
+    email: trimmed(email),
+    phone_number: trimmed(b.phone_number) || undefined,
+    address: {
+      street: trimmed(addr.street),
+      city: trimmed(addr.city),
+      state: trimmed(addr.state),
+      postcode: trimmed(addr.postcode),
+      country_code: (trimmed(addr.country_code) || 'AU').toUpperCase().slice(0, 2),
+    },
+  };
+  const a = billing.address;
+  if (!a.street || !a.city || !a.state || !a.postcode || !a.country_code) {
+    return json(400, { error: 'Please enter your full billing address (street, city, state and postcode).' });
+  }
+
   // Resolve amount: fixed from catalogue, or a bounded client-supplied amount for "custom".
   let amount;
   if (svc.amount != null) {
@@ -114,7 +136,19 @@ exports.handler = async (event) => {
         currency: CURRENCY,
         merchant_order_id: orderId,
         descriptor: 'Clear Sky Consulting',
-        metadata: { service, service_label: svc.label, customer_name: String(name).trim(), customer_email: String(email).trim() },
+        // Billing address is applied at card confirmation (element `billing`) for AVS.
+        // Here we also record it on the intent metadata for the merchant's review.
+        metadata: {
+          service,
+          service_label: svc.label,
+          customer_name: `${billing.first_name} ${billing.last_name}`.trim(),
+          customer_email: billing.email,
+          customer_phone: billing.phone_number || '',
+          billing_city: a.city,
+          billing_state: a.state,
+          billing_postcode: a.postcode,
+          billing_country: a.country_code,
+        },
       }),
     });
 
@@ -138,6 +172,7 @@ exports.handler = async (event) => {
       amount,
       service: svc.label,
       order_id: orderId,
+      billing,
       env,
     });
   } catch (err) {
