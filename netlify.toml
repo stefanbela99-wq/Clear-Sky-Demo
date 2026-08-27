@@ -9,6 +9,14 @@
   publish = "."
   command = ""
 
+# Serverless functions (Node). The payment flow needs one server-side call to
+# create an Airwallex PaymentIntent using the secret API key, which must never
+# live in the static frontend. Set AIRWALLEX_CLIENT_ID, AIRWALLEX_API_KEY and
+# AIRWALLEX_ENV (demo|prod) in Netlify > Site settings > Environment variables.
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
 # Sensible default security headers for every response.
 [[headers]]
   for = "/*"
