@@ -308,7 +308,11 @@
         body: JSON.stringify({ service: serviceSel.value, amount: amt, name: name, email: email })
       });
       var data = await res.json();
-      if (!res.ok) throw new Error(data && data.error ? data.error : 'Could not start the payment.');
+      if (!res.ok) {
+        var msg = (data && data.error) ? data.error : 'Could not start the payment.';
+        if (data && data.detail) msg += '\n\n' + data.detail;
+        throw new Error(msg);
+      }
 
       // Reveal payment step, fill invoice summary.
       $('pay-service').textContent = data.service;

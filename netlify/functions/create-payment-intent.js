@@ -96,7 +96,10 @@ exports.handler = async (event) => {
     if (!loginRes.ok) {
       const t = await loginRes.text();
       console.error('Airwallex auth failed', loginRes.status, t);
-      return json(502, { error: 'Could not reach the payment provider. Please try again shortly.' });
+      return json(502, {
+        error: 'Could not authenticate with the payment provider.',
+        detail: `auth HTTP ${loginRes.status} — check the API key / Client ID match the ${env} environment. ${t.slice(0, 300)}`,
+      });
     }
     const token = (await loginRes.json()).token;
 
@@ -117,7 +120,12 @@ exports.handler = async (event) => {
     const intent = await intentRes.json();
     if (!intentRes.ok) {
       console.error('Airwallex intent create failed', intentRes.status, intent);
-      return json(502, { error: 'Could not start the payment. Please try again shortly.' });
+      const code = intent && (intent.code || intent.error || '');
+      const message = intent && (intent.message || intent.detail || '');
+      return json(502, {
+        error: 'Could not start the payment.',
+        detail: `create-intent HTTP ${intentRes.status}${code ? ' [' + code + ']' : ''}${message ? ' ' + message : ''}`.trim(),
+      });
     }
 
     // Only hand back what the browser needs. Never return the token or keys.
