@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" role="img" aria-label="Decorative sky illustration">
+  <defs><linearGradient id="g4" x1="0" y1="0" x2="0" y2="1">
+    <stop offset="0" stop-color="#fbfcfe"/><stop offset="0.55" stop-color="#ece3d3"/><stop offset="1" stop-color="#c9b48d"/>
+  </linearGradient></defs>
+  <rect width="640" height="360" fill="url(#g4)"/>
+  <circle cx="470" cy="120" r="46" fill="#3A7CAD" opacity="0.9"/>
+  <circle cx="470" cy="120" r="66" fill="#3A7CAD" opacity="0.18"/>
+  <path d="M0 250 Q160 210 320 250 T640 250 V360 H0 Z" fill="#ffffff" opacity="0.25"/>
+  <path d="M0 290 Q160 255 320 290 T640 290 V360 H0 Z" fill="#ffffff" opacity="0.35"/>
+  <path d="M0 300 L640 300" stroke="#3A7CAD" stroke-width="1" opacity="0.35"/>
+</svg>

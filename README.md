@@ -1,67 +1,85 @@
-# Clear Sky Consulting - Website
+# Clear Sky Consulting Pty Ltd — website (demo)
 
-A lightweight, multi-page marketing website for **Clear Sky Consulting** -
-online business consulting by **Kenneth Jimmieson** for small business owners
-and private clients.
+A full marketing + corporate website for **Clear Sky Consulting**, a fictional
+**private** Australian independent personal advisory firm. Static site, no build
+step required to view — open `index.html` or serve the folder with any static
+host.
 
-Built as a static site (plain HTML, CSS and a little JavaScript), so it can be
-hosted anywhere with no build step or server-side code.
+> ⚠️ **This is a demo.** All people, photos, emails, phone numbers, awards and
+> testimonials are **fictional / AI-generated** placeholders. Replace them with
+> real content before going anywhere near production.
 
-## Pages
+## Pages (22)
 
-| File | Purpose |
-|------|---------|
-| `index.html` | Home - hero, services overview, about preview, calls to action |
-| `about.html` | About Kenneth, approach and values |
-| `services.html` | Full list of services + how it works |
-| `apply.html` | Application form to work together |
-| `contact.html` | Contact details + contact form |
-| `payment.html` | Payment page (**Coming Soon**) |
+**Core**
+- `index.html` — home (hero, metrics, services, stats, process, insights)
+- `about.html` — company story, mission, timeline, values, awards
+- `leadership.html` — executive team, board of directors, regional MDs
+- `offices.html` — five office locations with contacts & directions
+- `careers.html` — why Clear Sky Consulting, benefits, open roles
+- `press.html` — newsroom / announcements
+- `contact.html` — booking form + contact details
+- `faq.html` — frequently asked questions
 
-## Your photo
+**What we do**
+- `services.html` — overview
+- `service-decision-clarity.html`
+- `service-planning-strategy.html`
+- `service-second-opinion.html`
+- `service-ongoing-advisory.html`
+- `approach.html` — how we work
+- `pricing.html` — fixed-fee plans
 
-Kenneth's headshot lives at **`assets/img/exec-1.webp`** and appears on the
-Home and About pages. To swap it for a different photo, either replace that
-file (keep the same name) or upload a new one and update the `<img src="...">`
-references in `index.html` and `about.html`.
+**Resources**
+- `insights.html` — article listing
+- `insight-three-questions.html`
+- `insight-second-opinion.html`
+- `insight-decision-fatigue.html`
+- `case-studies.html` — illustrative client stories
 
-A square image (e.g. 600×600px or larger) works best. If the referenced file is
-ever missing, a placeholder illustration is shown automatically.
+**Legal**
+- `privacy.html`, `terms.html`
 
-## Making the forms live
+**Utility**
+- `404.html` — styled not-found page (point your host's 404 handler at it)
 
-Both the **Contact** and **Application** forms currently run in demo mode: they
-show a success message but do not send anywhere. To receive real submissions,
-use a no-code form backend such as [Formspree](https://formspree.io) or
-[Netlify Forms](https://docs.netlify.com/forms/setup/):
+## Structure
 
-1. In `contact.html` and `apply.html`, find the `<form ...>` tag.
-2. Set `action` to your form endpoint URL and keep `method="post"`.
-3. Remove the `data-demo-form` attribute so the browser submits normally.
+- `styles.css` — all styles (single shared stylesheet)
+- `main.js` — nav toggle, mobile dropdowns, scroll reveal, count-up stats,
+  accordions, category filters, newsletter + contact-form → mailto
+- `assets/` — generated placeholder portraits (`exec-*`, `board-*`, `reg-*`,
+  `founder-*`), decorative thumbnails (`thumb-*`), `favicon.svg`, `og-image.svg`
+- `build/` — the generator that produces every HTML page from shared chrome
 
-## Contact / business details
+## SEO / social
 
-- **Business:** Clear Sky Consulting
-- **Consultant:** Kenneth Jimmieson
-- **Phone:** +61 488 855 709
-- **Address:** 38 Smith Street, Cairns North QLD 4870
-- **Website:** clear-sky-consulting.au
-- **Email:** hello@clear-sky-consulting.au *(update to your real inbox)*
+Every page includes a favicon, Open Graph and Twitter card meta tags. Two
+caveats before going live:
+- **`og-image.svg` is an SVG** (no PNG converter was available here). Most social
+  platforms want a **1200×630 PNG/JPG** — export one and update the `og:image` /
+  `twitter:image` paths in `build/generate.py`.
+- Social scrapers need **absolute URLs**. Once you have a domain, prefix the
+  image paths (e.g. `https://yourdomain/assets/og-image.svg`).
 
-> Note: the email address above is a suggested placeholder. Replace
-> `hello@clear-sky-consulting.au` throughout the site with your real address.
+## Regenerating the site
 
-## Running locally
-
-Just open `index.html` in your browser, or serve the folder:
+Every page is produced from one source of truth so the nav, footer and styling
+stay identical across all 23 pages:
 
 ```bash
-python3 -m http.server 8000
-# then visit http://localhost:8000
+python3 build/generate.py
 ```
 
-## Deploying
+Edit content/people in `build/pages.py` and `build/generate.py`, then re-run.
 
-Upload all files to any static host - Netlify, Cloudflare Pages, GitHub Pages,
-Vercel, or traditional cPanel/FTP hosting for your `clear-sky-consulting.au`
-domain. Keep the folder structure intact.
+## Replace before going live
+
+- **People** — names, roles, bios in `build/generate.py` (`EXEC`, `BOARD`,
+  `REGIONAL`) and the portrait SVGs in `assets/` (swap for real headshots).
+- **Contact details** — `hello@clear-sky-consulting.au`, `1300 CLEAR SKY`, all
+  `+61 …` numbers, and per-office emails/phones.
+- **ABN** — placeholder in the footer.
+- **Testimonials / case studies / awards / press** — all illustrative.
+- **Contact form** — currently opens the visitor's email app via `mailto`;
+  swap for a real backend in `main.js` when ready.
