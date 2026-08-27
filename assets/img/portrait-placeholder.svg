@@ -1,6 +1,0 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 300" width="300" height="300" role="img" aria-label="Portrait placeholder">
-  <rect width="300" height="300" fill="#e7f3fb"/>
-  <circle cx="150" cy="120" r="55" fill="#7fc1ec"/>
-  <path d="M55 275c0-52 43-88 95-88s95 36 95 88z" fill="#7fc1ec"/>
-  <text x="150" y="292" text-anchor="middle" font-family="Segoe UI, sans-serif" font-size="14" fill="#145da0">Kenneth Jimmieson</text>
-</svg>

@@ -1,0 +1,27 @@
+# Netlify configuration for Clear Sky Consulting.
+# The site is pre-generated static HTML committed at the repo root, so there is
+# nothing to build - Netlify just publishes the files as-is.
+#
+# (Optional: to have Netlify regenerate the HTML from build/*.py on every deploy
+#  instead of serving the committed files, set  command = "python3 build/generate.py")
+
+[build]
+  publish = "."
+  command = ""
+
+# Sensible default security headers for every response.
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+    X-Frame-Options = "SAMEORIGIN"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "geolocation=(), microphone=(), camera=()"
+
+# Long-lived caching for fingerprint-stable static assets (fonts/images/PDFs).
+# HTML is left to Netlify's default (revalidated) caching so content updates
+# appear immediately.
+[[headers]]
+  for = "/assets/*"
+  [headers.values]
+    Cache-Control = "public, max-age=86400, must-revalidate"
