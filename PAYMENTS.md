@@ -27,10 +27,13 @@ The `custom` option lets a client pay an advisor-agreed amount, bounded $1–$50
    (Find the Client ID / API key in Airwallex → Account settings → Developer.)
 3. Redeploy. That's it — the function picks up the keys at runtime.
 
-## Testing (sandbox)
+## Live vs sandbox
 
-With `AIRWALLEX_ENV=demo` and demo keys, a yellow "Test mode" banner shows and no real
-money moves. Use Airwallex's test card **4035 5010 0000 0008**, any future expiry, any CVC.
+The integration runs **live by default** — real cards, real charges. To verify without
+real money, temporarily set `AIRWALLEX_ENV=demo` **and** swap in a matching demo
+Client ID + demo API key (from Airwallex's Demo environment), redeploy, and pay with test
+card **4035 5010 0000 0008** (any future expiry, any CVC). Then switch the three vars back
+to your live values and redeploy. Live and demo credentials are not interchangeable.
 Run locally with `netlify dev` (copy `.env.example` to `.env` first).
 
 ## Notes / possible next steps
