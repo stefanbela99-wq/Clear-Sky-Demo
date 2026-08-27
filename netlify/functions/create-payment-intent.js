@@ -7,7 +7,7 @@
  * Required environment variables (Netlify > Site settings > Environment variables):
  *   AIRWALLEX_CLIENT_ID   Your Client ID   (Airwallex webapp > Account settings > Developer)
  *   AIRWALLEX_API_KEY     Your API key     (same place — keep secret)
- *   AIRWALLEX_ENV         "demo" (sandbox, default) or "prod" (live charges)
+ *   AIRWALLEX_ENV         "prod" (live charges, default) or "demo" (sandbox)
  *
  * Prices are fixed here on the server so the amount a client pays can't be
  * tampered with in the browser. "custom" lets a client pay an advisor-agreed
@@ -30,11 +30,12 @@ const CUSTOM_MAX = 50000;
 
 function hosts() {
   const env = (process.env.AIRWALLEX_ENV || 'demo').toLowerCase();
-  const prod = env === 'prod' || env === 'production';
+  // Live by default. Only an explicit demo/sandbox value uses the sandbox hosts.
+  const demo = env === 'demo' || env === 'sandbox' || env === 'test';
   return {
-    env: prod ? 'prod' : 'demo',
-    api: prod ? 'https://api.airwallex.com' : 'https://api-demo.airwallex.com',
-    pci: prod ? 'https://pci-api.airwallex.com' : 'https://pci-api-demo.airwallex.com',
+    env: demo ? 'demo' : 'prod',
+    api: demo ? 'https://api-demo.airwallex.com' : 'https://api.airwallex.com',
+    pci: demo ? 'https://pci-api-demo.airwallex.com' : 'https://pci-api.airwallex.com',
   };
 }
 
