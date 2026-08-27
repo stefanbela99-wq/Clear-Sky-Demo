@@ -1,3 +1,10 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+# Secrets & deps — never commit these
+.env
+.env.*
+!.env.example
+node_modules/
+.netlify/
