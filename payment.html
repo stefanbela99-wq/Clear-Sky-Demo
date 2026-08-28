@@ -145,7 +145,21 @@
           <div class="field"><label for="street">Street address</label><input id="street" name="street" type="text" autocomplete="address-line1" placeholder="e.g. 44 Kings Park Road" required></div>
           <div class="pay-row">
             <div class="field"><label for="city">City / suburb</label><input id="city" name="city" type="text" autocomplete="address-level2" required></div>
-            <div class="field"><label for="state">State / territory</label><input id="state" name="state" type="text" autocomplete="address-level1" placeholder="e.g. WA" required></div>
+            <div class="field" id="stateAUField"><label for="stateAU">State / territory</label>
+              <select id="stateAU" name="stateAU" autocomplete="address-level1" required>
+                <option value="" disabled selected>Select a state…</option>
+                <option>Australian Capital Territory</option>
+                <option>New South Wales</option>
+                <option>Northern Territory</option>
+                <option>Queensland</option>
+                <option>South Australia</option>
+                <option>Tasmania</option>
+                <option>Victoria</option>
+                <option>Western Australia</option>
+              </select>
+            </div>
+            <div class="field" id="stateOtherField" hidden><label for="stateOther">State / region / province</label>
+              <input id="stateOther" name="stateOther" type="text" autocomplete="address-level1" placeholder="State / region"></div>
           </div>
           <div class="pay-row">
             <div class="field"><label for="postcode">Postcode</label><input id="postcode" name="postcode" type="text" autocomplete="postal-code" inputmode="numeric" required></div>
@@ -316,13 +330,27 @@
 
   // Reveal free-text country code when "Other" is chosen.
   var countrySel = $('country'), countryOtherField = $('countryOtherField'), countryOther = $('countryOther');
+  var stateAUField = $('stateAUField'), stateAU = $('stateAU'), stateOtherField = $('stateOtherField'), stateOther = $('stateOther');
+  // AU shows the states dropdown; any other country shows a free-text state/region field.
+  function syncState(){
+    var isAU = countrySel.value === 'AU';
+    stateAUField.hidden = !isAU;
+    stateAU.required = isAU;
+    stateOtherField.hidden = isAU;
+    stateOther.required = !isAU;
+  }
   countrySel.addEventListener('change', function(){
     var other = countrySel.value === 'OTHER';
     countryOtherField.hidden = !other;
     countryOther.required = other;
+    syncState();
   });
+  syncState();
   function countryCode(){
     return countrySel.value === 'OTHER' ? countryOther.value.trim().toUpperCase() : countrySel.value;
+  }
+  function stateValue(){
+    return (countrySel.value === 'AU' ? stateAU.value : stateOther.value).trim();
   }
 
   function setStatus(msg, kind){
@@ -347,7 +375,8 @@
     var phone = $('phone').value.trim();
     var street = req('street'); if (street === null) return;
     var city = req('city'); if (city === null) return;
-    var state = req('state'); if (state === null) return;
+    var state = stateValue();
+    if (!state){ (countrySel.value === 'AU' ? stateAU : stateOther).focus(); return; }
     var postcode = req('postcode'); if (postcode === null) return;
     var cc = countryCode();
     if (!cc || cc.length !== 2){ (countrySel.value === 'OTHER' ? countryOther : countrySel).focus(); return; }
