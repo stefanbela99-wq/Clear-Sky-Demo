@@ -127,32 +127,87 @@ exports.handler = async (event) => {
     const token = (await loginRes.json()).token;
 
     // STEP 2 — create the PaymentIntent.
-    const intentRes = await fetch(`${pci}/api/v1/pa/payment_intents/create`, {
+    const newReqId = () => (globalThis.crypto?.randomUUID?.() || (String(Date.now()) + Math.random()));
+
+    // Metadata for the merchant's dashboard (not read by the risk engine).
+    const metadata = {
+      service,
+      service_label: svc.label,
+      customer_name: `${billing.first_name} ${billing.last_name}`.trim(),
+      customer_email: billing.email,
+      customer_phone: billing.phone_number || '',
+      billing_city: a.city,
+      billing_state: a.state,
+      billing_postcode: a.postcode,
+      billing_country: a.country_code,
+    };
+
+    // Best-effort: create a Customer so the payment carries a customer_id (a
+    // persistent profile the risk engine can use). Failure never blocks payment.
+    let customerId;
+    try {
+      const custRes = await fetch(`${pci}/api/v1/pa/customers/create`, {
+        method: 'POST',
+        headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          request_id: newReqId(),
+          merchant_customer_id: 'CSC-' + newReqId(),
+          first_name: billing.first_name,
+          last_name: billing.last_name,
+          email: billing.email,
+          phone_number: billing.phone_number,
+          address: { city: a.city, country_code: a.country_code, postcode: a.postcode, state: a.state, street: a.street },
+        }),
+      });
+      if (custRes.ok) {
+        customerId = (await custRes.json()).id;
+      } else {
+        console.error('Airwallex customer create failed (continuing without customer_id)', custRes.status, (await custRes.text()).slice(0, 300));
+      }
+    } catch (e) {
+      console.error('Airwallex customer create error (continuing)', e && e.message);
+    }
+
+    const createIntent = (body) => fetch(`${pci}/api/v1/pa/payment_intents/create`, {
       method: 'POST',
       headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        request_id: (globalThis.crypto?.randomUUID?.() || String(Date.now()) + Math.random()),
-        amount,
-        currency: CURRENCY,
-        merchant_order_id: orderId,
-        descriptor: 'Clear Sky Consulting',
-        // Billing address is applied at card confirmation (element `billing`) for AVS.
-        // Here we also record it on the intent metadata for the merchant's review.
-        metadata: {
-          service,
-          service_label: svc.label,
-          customer_name: `${billing.first_name} ${billing.last_name}`.trim(),
-          customer_email: billing.email,
-          customer_phone: billing.phone_number || '',
-          billing_city: a.city,
-          billing_state: a.state,
-          billing_postcode: a.postcode,
-          billing_country: a.country_code,
-        },
-      }),
+      body: JSON.stringify(body),
     });
 
-    const intent = await intentRes.json();
+    const baseBody = { amount, currency: CURRENCY, merchant_order_id: orderId, descriptor: 'Clear Sky Consulting', metadata };
+    // Enriched body: customer_id + order (line item + shipping address) for extra
+    // risk signal. AVS billing is still applied at card confirmation (element `billing`).
+    const enrichedBody = {
+      ...baseBody,
+      request_id: newReqId(),
+      ...(customerId ? { customer_id: customerId } : {}),
+      order: {
+        products: [{
+          name: svc.label,
+          desc: svc.label + ' - Clear Sky Consulting',
+          unit_price: amount,
+          currency: CURRENCY,
+          quantity: 1,
+          url: 'https://www.clear-sky-consulting.au/payment.html',
+        }],
+        shipping: {
+          first_name: billing.first_name,
+          last_name: billing.last_name,
+          phone_number: billing.phone_number,
+          address: { city: a.city, country_code: a.country_code, postcode: a.postcode, state: a.state, street: a.street },
+        },
+      },
+    };
+
+    let intentRes = await createIntent(enrichedBody);
+    let intent = await intentRes.json();
+    if (!intentRes.ok) {
+      // Never regress: if the enriched payload is rejected, retry with the minimal
+      // known-good body (metadata only) so the payment still goes through.
+      console.error('Airwallex enriched intent create failed, retrying minimal', intentRes.status, JSON.stringify(intent).slice(0, 300));
+      intentRes = await createIntent({ ...baseBody, request_id: newReqId() });
+      intent = await intentRes.json();
+    }
     if (!intentRes.ok) {
       console.error('Airwallex intent create failed', intentRes.status, intent);
       const code = intent && (intent.code || intent.error || '');
