@@ -120,10 +120,10 @@
           <div class="field">
             <label for="service">Service</label>
             <select id="service" name="service" required>
-              <option value="decision-clarity">Decision clarity session - $1,200</option>
+              <option value="decision-clarity">Decision clarity session - $2,350</option>
               <option value="planning-strategy">Planning &amp; strategy - $3,500</option>
-              <option value="second-opinion">Second opinion review - $900</option>
-              <option value="ongoing-advisory">Ongoing advisory - $4,800</option>
+              <option value="second-opinion">Second opinion review - $1,650</option>
+              <option value="ongoing-advisory">Ongoing advisory - $4,750</option>
               <option value="custom">Other / custom invoice amount</option>
             </select>
           </div>
@@ -170,8 +170,8 @@
           </div>
 
           <div class="pay-invoice" aria-live="polite">
-            <div class="row"><span class="k" id="inv-service">Decision clarity session</span><span class="v" id="inv-line">$1,200.00</span></div>
-            <div class="row total"><span class="k">Total due</span><span class="amt" id="inv-total">$1,200.00</span></div>
+            <div class="row"><span class="k" id="inv-service">Decision clarity session</span><span class="v" id="inv-line">$2,350.00</span></div>
+            <div class="row total"><span class="k">Total due</span><span class="amt" id="inv-total">$2,350.00</span></div>
           </div>
 
           <button class="btn btn-primary" type="submit" id="continueBtn" style="width:100%">Continue to secure payment</button>
@@ -275,10 +275,10 @@
 <script>
 (function(){
   var PRICES = {
-    'decision-clarity': { label: 'Decision clarity session', amount: 1200 },
+    'decision-clarity': { label: 'Decision clarity session', amount: 2350 },
     'planning-strategy': { label: 'Planning & strategy',      amount: 3500 },
-    'second-opinion':    { label: 'Second opinion review',    amount: 900 },
-    'ongoing-advisory':  { label: 'Ongoing advisory',         amount: 4800 },
+    'second-opinion':    { label: 'Second opinion review',    amount: 1650 },
+    'ongoing-advisory':  { label: 'Ongoing advisory',         amount: 4750 },
     'custom':            { label: 'Custom invoice',           amount: null }
   };
   var money = function(n){ return '$' + Number(n).toLocaleString('en-AU',{minimumFractionDigits:2,maximumFractionDigits:2}); };

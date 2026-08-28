@@ -19,10 +19,10 @@ const COUNTRY = 'AU';
 
 // Fixed catalogue (AUD, whole dollars). Mirrors pricing.html.
 const SERVICES = {
-  'decision-clarity': { label: 'Decision clarity session', amount: 1200 },
+  'decision-clarity': { label: 'Decision clarity session', amount: 2350 },
   'planning-strategy': { label: 'Planning & strategy',      amount: 3500 },
-  'second-opinion':    { label: 'Second opinion review',    amount: 900 },
-  'ongoing-advisory':  { label: 'Ongoing advisory',         amount: 4800 },
+  'second-opinion':    { label: 'Second opinion review',    amount: 1650 },
+  'ongoing-advisory':  { label: 'Ongoing advisory',         amount: 4750 },
   'custom':            { label: 'Custom invoice',           amount: null }, // amount supplied by client, bounded below
 };
 const CUSTOM_MIN = 1;
