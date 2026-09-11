@@ -9,17 +9,6 @@
   publish = "."
   command = ""
 
-# ─────────────────────────────────────────────────────────────────────────────
-# MAINTENANCE MODE (temporary). While this block is present, every URL serves
-# maintenance.html with a 503 status, but NO site files are deleted.
-# TO BRING THE SITE BACK ONLINE: delete this entire [[redirects]] block and redeploy.
-# ─────────────────────────────────────────────────────────────────────────────
-[[redirects]]
-  from = "/*"
-  to = "/maintenance.html"
-  status = 503
-  force = true
-
 # Serverless functions (Node). The payment flow needs one server-side call to
 # create an Airwallex PaymentIntent using the secret API key, which must never
 # live in the static frontend. Set AIRWALLEX_CLIENT_ID, AIRWALLEX_API_KEY and
