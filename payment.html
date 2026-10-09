@@ -1,22 +1,21 @@
 <!DOCTYPE html>
 <html lang="en-AU">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script>(function(){try{var t=localStorage.getItem('csc-theme');if(t==='dark'||(!t&&window.matchMedia&&matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');}catch(e){}})();</script>
-<title>Make a Payment | Clear Sky Consulting</title>
-<meta name="description" content="Pay for your Clear Sky Consulting service securely online by card. Choose your service, review your invoice and pay in a few seconds.">
-<meta name="robots" content="noindex, follow">
-<link rel="canonical" href="https://www.clear-sky-consulting.au/payment.html">
-<link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
-<link rel="apple-touch-icon" href="assets/logo.png">
-<link rel="manifest" href="site.webmanifest">
-<meta name="theme-color" content="#134063">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Make a Payment - Clear Sky Consulting</title>
+  <meta name="description" content="Pay for your Clear Sky Consulting service securely online by card. Choose your service, review your invoice and pay in a few seconds.">
+  <meta name="robots" content="noindex, follow">
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="assets/css/styles.css">
 <style>
+  /* layout shims: this page carries markup from the previous site's stylesheet */
+  .wrap{width:100%;max-width:var(--max);margin:0 auto;padding:0 24px}
+  .block{padding:56px 0}
+  .trust{background:var(--cloud);border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:16px 0}
+  .trust .wrap{display:flex;flex-wrap:wrap;gap:12px 32px;justify-content:center;color:var(--slate);font-size:.9rem}
+  .section-head{text-align:center;max-width:720px;margin:0 auto 32px}
+  .horizon,.sun{display:none}
   .pay-wrap{max-width:640px;margin:0 auto}
   .pay-card{background:var(--card,#fff);border:1px solid var(--line,#e5ebf1);border-radius:18px;padding:1.8rem;box-shadow:0 18px 50px -30px rgba(19,64,99,.4);position:relative;z-index:1}
   #drop-in{position:relative;z-index:0}
@@ -43,50 +42,33 @@
 </style>
 </head>
 <body>
-<a class="skip-link" href="#top">Skip to content</a>
-
-<div class="utility">
-  <div class="wrap">
-    <div class="u-left">
-      <span>Independent &amp; impartial advice</span>
-      <span>Five offices across Australia</span>
-      <span>Mon-Fri, 8:30am-5:30pm AEST</span>
-    </div>
-    <div class="u-right">
-      <a href="tel:+61488855709">+61 488 855 709</a>
-      <a href="offices.html">Offices</a>
-      <a href="contact.html">Contact</a>
-      <a href="payment.html">Pay invoice</a>
-      <button class="theme-toggle" id="themeToggle" type="button" aria-label="Toggle dark mode" title="Toggle dark mode">
-        <svg class="t-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
-        <svg class="t-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="12" cy="12" r="4.5"/><path d="M12 2v2M12 20v2M2 12h2M20 12h2M5 5l1.5 1.5M17.5 17.5L19 19M19 5l-1.5 1.5M6.5 17.5L5 19" stroke-linecap="round"/></svg>
-      </button>
+  <div class="utility-bar">
+    <div class="container">
+      <a href="tel:+61488855709">📞 +61 488 855 709</a>
+      <a href="mailto:hello@clear-sky-consulting.au">✉️ hello@clear-sky-consulting.au</a>
     </div>
   </div>
-</div>
-<header>
-  <div class="wrap nav">
-    <a class="brand" href="index.html" aria-label="Clear Sky Consulting home">
-      <svg class="mark" viewBox="0 0 24 24" fill="none" aria-hidden="true">
-        <circle cx="12" cy="9" r="4.5" fill="#E2A24A"/>
-        <path d="M2 18h20M6 21h12" stroke="#134063" stroke-width="1.6" stroke-linecap="round"/>
-      </svg>
-      Clear&nbsp;Sky&nbsp;Consulting
-    </a>
-    <nav class="nav-links" id="menu">
-      <div class="has-menu"><a href="services.html">What we do</a><div class="dropdown"><a href="service-decision-clarity.html">Decision clarity session<small>Untangle one big decision</small></a><a href="service-planning-strategy.html">Planning &amp; strategy<small>A structured plan toward a goal</small></a><a href="service-second-opinion.html">Second opinion review<small>Independent check before you commit</small></a><a href="service-ongoing-advisory.html">Ongoing advisory<small>A trusted advisor for the long run</small></a><a href="find-your-service.html">Which service fits you?<small>Take the 60-second quiz</small></a><a href="approach.html">Our approach<small>How we work, step by step</small></a><a href="pricing.html">Pricing<small>Fixed fees, agreed upfront</small></a></div></div>
-      <div class="has-menu"><a href="about.html">Company</a><div class="dropdown"><a href="about.html">About Clear Sky Consulting<small>Our story and mission</small></a><a href="leadership.html">Leadership &amp; board<small>The people accountable to you</small></a><a href="offices.html">Offices<small>Five locations across Australia</small></a><a href="careers.html">Careers<small>Build a practice worth trusting</small></a><a href="press.html">Newsroom<small>Announcements and media</small></a><a href="resources.html">Free guides<small>Downloadable checklists</small></a></div></div>
-      <a href="insights.html">Insights</a>
-      <a href="case-studies.html">Case studies</a>
-      <a href="faq.html">FAQ</a>
-      <a class="btn btn-primary" href="contact.html">Book a meeting</a>
-    </nav>
-    <button class="nav-toggle" id="toggle" aria-label="Open menu" aria-expanded="false">
-      <span></span><span></span><span></span>
-    </button>
-  </div>
-</header>
 
+  <header class="site-header">
+    <div class="container nav">
+      <a class="brand" href="index.html">
+        <img class="brand__logo" src="assets/img/logo.svg" alt="">
+        <span>Clear Sky Consulting<small>Online Business Consulting</small></span>
+      </a>
+      <button class="nav__toggle" aria-label="Toggle menu"><span></span><span></span><span></span></button>
+      <ul class="nav__links">
+        <li><a href="index.html">Home</a></li>
+        <li><a href="about.html">About</a></li>
+        <li><a href="services.html">Services</a></li>
+        <li><a href="apply.html">Apply</a></li>
+        <li><a href="payment.html">Payment</a></li>
+        <li><a href="contact.html">Contact</a></li>
+        <li class="nav__cta"><a class="btn btn--primary" href="contact.html">Book a Chat</a></li>
+      </ul>
+    </div>
+  </header>
+
+  <main id="top">
 <main id="top">
 
   <section class="page-hero">
@@ -190,7 +172,7 @@
           </div>
 
           <button class="btn btn-primary" type="submit" id="continueBtn" style="width:100%">Continue to secure payment</button>
-          <p class="form-note">By continuing you agree to our <a href="terms.html">terms of engagement</a> and <a href="privacy.html">privacy policy</a>.</p>
+          <p class="form-note">By continuing you agree to the terms of your engagement. Questions about billing or privacy? <a href="contact.html">Get in touch</a>.</p>
         </form>
       </div>
 
@@ -215,78 +197,47 @@
   </section>
 
 </main>
+  </main>
 
-<footer>
-  <div class="wrap">
-    <div class="foot-mega">
-      <div>
-        <div class="foot-brand">
-          <svg viewBox="0 0 24 24" fill="none" width="20" height="20" aria-hidden="true">
-            <circle cx="12" cy="9" r="4.5" fill="#E2A24A"/>
-            <path d="M2 18h20M6 21h12" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
-          </svg>
-          Clear Sky Consulting
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-grid">
+        <div>
+          <a class="brand" href="index.html">
+            <img class="brand__logo" src="assets/img/logo.svg" alt="">
+            <span>Clear Sky Consulting<small>Online Business Consulting</small></span>
+          </a>
+          <p style="margin-top:16px;color:#9fb2c4;max-width:34ch">Helping small business owners and private clients move forward with clarity and confidence.</p>
         </div>
-        <p style="max-width:280px;margin-top:.8rem;color:#73869c">Independent personal advisory for individuals and families across Australia, since 2018.</p>
-        <a href="https://www.clear-sky-consulting.au" style="display:inline-block;margin-top:.7rem;color:#aebfd3;font-weight:600;font-size:.88rem">www.clear-sky-consulting.au</a>
+        <div>
+          <h4>Explore</h4>
+          <ul>
+            <li><a href="about.html">About</a></li>
+            <li><a href="services.html">Services</a></li>
+            <li><a href="apply.html">Apply</a></li>
+            <li><a href="payment.html">Payment</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Get in touch</h4>
+          <ul>
+            <li>📞 <a href="tel:+61488855709">+61 488 855 709</a></li>
+            <li>✉️ <a href="mailto:hello@clear-sky-consulting.au">hello@clear-sky-consulting.au</a></li>
+            <li>🌐 clear-sky-consulting.au</li>
+            <li>📍 38 Smith St, Cairns North QLD 4870</li>
+          </ul>
+        </div>
       </div>
-      <div>
-        <div class="h">What we do</div>
-        <a href="service-decision-clarity.html">Decision clarity</a>
-        <a href="service-planning-strategy.html">Planning &amp; strategy</a>
-        <a href="service-second-opinion.html">Second opinion</a>
-        <a href="service-ongoing-advisory.html">Ongoing advisory</a>
-        <a href="approach.html">Our approach</a>
-        <a href="pricing.html">Pricing</a>
-      </div>
-      <div>
-        <div class="h">Company</div>
-        <a href="about.html">About us</a>
-        <a href="leadership.html">Leadership &amp; board</a>
-        <a href="careers.html">Careers</a>
-        <a href="offices.html">Offices</a>
-        <a href="press.html">Newsroom</a>
-        <a href="contact.html">Contact</a>
-      </div>
-      <div>
-        <div class="h">Resources</div>
-        <a href="insights.html">Insights</a>
-        <a href="resources.html">Free guides</a>
-        <a href="glossary.html">Glossary</a>
-        <a href="case-studies.html">Case studies</a>
-        <a href="faq.html">FAQ</a>
-      </div>
-      <div>
-        <div class="h">Get in touch</div>
-        <a href="contact.html">Book a meeting</a>
-        <a href="payment.html">Make a payment</a>
-        <a href="offices.html">Find an office</a>
-        <a href="privacy.html">Privacy policy</a>
-        <a href="terms.html">Terms of engagement</a>
-        <a href="#" data-cookie-prefs>Cookie preferences</a>
+      <div class="footer-bottom">
+        <span>© <span data-year>2026</span> Clear Sky Consulting. All rights reserved.</span>
+        <span>ABN available on request · Kenneth Jimmieson</span>
       </div>
     </div>
-    <div class="foot-offices">
-      <span>Our offices</span>
-      <a href="office-perth.html">Perth</a>
-      <a href="office-brisbane.html">Brisbane</a>
-      <a href="office-adelaide.html">Adelaide</a>
-      <a href="office-sydney.html">Sydney</a>
-      <a href="office-bendigo.html">Bendigo</a>
-    </div>
-    <div class="foot-bottom">
-      <div>© <span id="year"></span> Clear Sky Consulting Pty Ltd · ABN 47 615 920 188</div>
-      <div>Made with a clear head in Australia 🇦🇺</div>
-    </div>
-  </div>
-</footer>
-<a class="to-top" id="toTop" href="#top" aria-label="Back to top" hidden>
-  <svg viewBox="0 0 24 24" fill="none" stroke-width="2.2" aria-hidden="true"><path d="M12 19V5M6 11l6-6 6 6"/></svg>
-</a>
-
-<!-- Airwallex components SDK (Airwallex.js) -->
+  </footer>
+  <script src="assets/js/main.js"></script>
 <script src="https://static.airwallex.com/components/sdk/v1/index.js"></script>
-<script src="main.js"></script>
+
 <script>
 (function(){
   var PRICES = {

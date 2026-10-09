@@ -9,16 +9,14 @@
   publish = "."
   command = ""
 
-# ─────────────────────────────────────────────────────────────────────────────
-# MAINTENANCE MODE (temporary). While this block is present, every URL serves
-# maintenance.html with a 503 status, but NO site files are deleted.
-# TO BRING THE SITE BACK ONLINE: delete this entire [[redirects]] block and redeploy.
-# ─────────────────────────────────────────────────────────────────────────────
-[[redirects]]
-  from = "/*"
-  to = "/maintenance.html"
-  status = 503
-  force = true
+# MAINTENANCE MODE: to take the site offline again, restore this block and redeploy.
+# No site files need to be deleted - every URL simply serves maintenance.html.
+#
+#   [[redirects]]
+#     from = "/*"
+#     to = "/maintenance.html"
+#     status = 503
+#     force = true
 
 # Serverless functions (Node). The payment flow needs one server-side call to
 # create an Airwallex PaymentIntent using the secret API key, which must never
